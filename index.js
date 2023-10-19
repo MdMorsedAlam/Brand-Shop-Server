@@ -277,6 +277,27 @@ async function run() {
       res.send(result);
     });
 
+    //Post Add to cart
+    app.post("/mycart", async (req, res) => {
+      const addData = req.body;
+      const result = await mycartCollections.insertOne(addData);
+      res.send(result);
+    });
+// Get Add To cart
+app.get("/mycart", async (req, res) => {
+  const filter = mycartCollections.find();
+  const result = await filter.toArray();
+  res.send(result);
+});
+
+// Delete item From Add To Cart
+
+app.delete("/mycart/:id", async (req, res) => {
+  const id = req.params.id;
+  const query = { _id: new ObjectId(id) };
+  const result = await mycartCollections.deleteOne(query);
+  res.send(result);
+});
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
