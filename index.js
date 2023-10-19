@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const app = express();
 const port = process.env.PORT || 6868;
 const user = process.env.DB_USER;
@@ -38,6 +38,7 @@ async function run() {
       .collection("mercedes");
     const fordCollections = client.db("brandsDB").collection("ford");
     const toyotaCollections = client.db("brandsDB").collection("toyota");
+    const mycartCollections = client.db("brandsDB").collection("mycart");
 
     // Add Product To Database
     app.post("/honda", async (req, res) => {
@@ -99,6 +100,180 @@ async function run() {
     app.get("/toyota", async (req, res) => {
       const filter = toyotaCollections.find();
       const result = await filter.toArray();
+      res.send(result);
+    });
+    // Get Data By Id
+
+    app.get("/toyota/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await toyotaCollections.findOne(query);
+      res.send(result);
+    });
+    app.get("/ford/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await fordCollections.findOne(query);
+      res.send(result);
+    });
+    app.get("/mercedes/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await mercedesMenzCollections.findOne(query);
+      res.send(result);
+    });
+    app.get("/tesla/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await teslaCollections.findOne(query);
+      res.send(result);
+    });
+    app.get("/bmw/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await bmwCollections.findOne(query);
+      res.send(result);
+    });
+    app.get("/honda/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await hondaCollections.findOne(query);
+      res.send(result);
+    });
+
+    // update by id
+    app.put("/bmw/:id", async (req, res) => {
+      const id = req.params.id;
+      const itemData = req.body;
+      const query = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateItem = {
+        $set: {
+          brand: itemData.brand,
+          name: itemData.name,
+          price: itemData.price,
+          rating: itemData.rating,
+          des: itemData.des,
+          photo: itemData.photo,
+        },
+      };
+
+      const result = await bmwCollections.updateOne(query, updateItem, options);
+      res.send(result);
+    });
+    app.put("/tesla/:id", async (req, res) => {
+      const id = req.params.id;
+      const itemData = req.body;
+      const query = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateItem = {
+        $set: {
+          brand: itemData.brand,
+          name: itemData.name,
+          price: itemData.price,
+          rating: itemData.rating,
+          des: itemData.des,
+          photo: itemData.photo,
+        },
+      };
+
+      const result = await teslaCollections.updateOne(
+        query,
+        updateItem,
+        options
+      );
+      res.send(result);
+    });
+    app.put("/mercedes/:id", async (req, res) => {
+      const id = req.params.id;
+      const itemData = req.body;
+      const query = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateItem = {
+        $set: {
+          brand: itemData.brand,
+          name: itemData.name,
+          price: itemData.price,
+          rating: itemData.rating,
+          des: itemData.des,
+          photo: itemData.photo,
+        },
+      };
+
+      const result = await mercedesMenzCollections.updateOne(
+        query,
+        updateItem,
+        options
+      );
+      res.send(result);
+    });
+    app.put("/ford/:id", async (req, res) => {
+      const id = req.params.id;
+      const itemData = req.body;
+      const query = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateItem = {
+        $set: {
+          brand: itemData.brand,
+          name: itemData.name,
+          price: itemData.price,
+          rating: itemData.rating,
+          des: itemData.des,
+          photo: itemData.photo,
+        },
+      };
+
+      const result = await fordCollections.updateOne(
+        query,
+        updateItem,
+        options
+      );
+      res.send(result);
+    });
+    app.put("/toyota/:id", async (req, res) => {
+      const id = req.params.id;
+      const itemData = req.body;
+      const query = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateItem = {
+        $set: {
+          brand: itemData.brand,
+          name: itemData.name,
+          price: itemData.price,
+          rating: itemData.rating,
+          des: itemData.des,
+          photo: itemData.photo,
+        },
+      };
+
+      const result = await toyotaCollections.updateOne(
+        query,
+        updateItem,
+        options
+      );
+      res.send(result);
+    });
+    app.put("/honda/:id", async (req, res) => {
+      const id = req.params.id;
+      const itemData = req.body;
+      const query = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateItem = {
+        $set: {
+          brand: itemData.brand,
+          name: itemData.name,
+          price: itemData.price,
+          rating: itemData.rating,
+          des: itemData.des,
+          photo: itemData.photo,
+        },
+      };
+
+      const result = await hondaCollections.updateOne(
+        query,
+        updateItem,
+        options
+      );
       res.send(result);
     });
 
