@@ -7,8 +7,6 @@ const port = process.env.PORT || 6868;
 const user = process.env.DB_USER;
 const pass = process.env.DB_PASS;
 
-// autobrands
-// 5cFzQb9FzkikvOlV
 
 // middle were
 app.use(cors());
@@ -305,7 +303,6 @@ app.delete("/mycart/:id", async (req, res) => {
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
   } finally {
-    // Ensures that the client will close when you finish/error
     // await client.close();
   }
 }
