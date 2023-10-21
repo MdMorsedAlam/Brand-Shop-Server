@@ -7,7 +7,6 @@ const port = process.env.PORT || 6868;
 const user = process.env.DB_USER;
 const pass = process.env.DB_PASS;
 
-
 // middle were
 app.use(cors());
 app.use(express.json());
@@ -148,10 +147,11 @@ async function run() {
       const updateItem = {
         $set: {
           brand: itemData.brand,
+          type: itemData.type,
           name: itemData.name,
           price: itemData.price,
           rating: itemData.rating,
-          des: itemData.des,
+
           photo: itemData.photo,
         },
       };
@@ -167,10 +167,11 @@ async function run() {
       const updateItem = {
         $set: {
           brand: itemData.brand,
+          type: itemData.type,
           name: itemData.name,
           price: itemData.price,
           rating: itemData.rating,
-          des: itemData.des,
+
           photo: itemData.photo,
         },
       };
@@ -190,10 +191,11 @@ async function run() {
       const updateItem = {
         $set: {
           brand: itemData.brand,
+          type: itemData.type,
           name: itemData.name,
           price: itemData.price,
           rating: itemData.rating,
-          des: itemData.des,
+
           photo: itemData.photo,
         },
       };
@@ -213,10 +215,11 @@ async function run() {
       const updateItem = {
         $set: {
           brand: itemData.brand,
+          type: itemData.type,
           name: itemData.name,
           price: itemData.price,
           rating: itemData.rating,
-          des: itemData.des,
+
           photo: itemData.photo,
         },
       };
@@ -236,10 +239,10 @@ async function run() {
       const updateItem = {
         $set: {
           brand: itemData.brand,
+          type: itemData.type,
           name: itemData.name,
           price: itemData.price,
           rating: itemData.rating,
-          des: itemData.des,
           photo: itemData.photo,
         },
       };
@@ -259,10 +262,11 @@ async function run() {
       const updateItem = {
         $set: {
           brand: itemData.brand,
+          type: itemData.type,
           name: itemData.name,
           price: itemData.price,
           rating: itemData.rating,
-          des: itemData.des,
+
           photo: itemData.photo,
         },
       };
@@ -281,24 +285,23 @@ async function run() {
       const result = await mycartCollections.insertOne(addData);
       res.send(result);
     });
-// Get Add To cart
-app.get("/mycart", async (req, res) => {
-  const filter = mycartCollections.find();
-  const result = await filter.toArray();
-  res.send(result);
-});
+    // Get Add To cart
+    app.get("/mycart", async (req, res) => {
+      const filter = mycartCollections.find();
+      const result = await filter.toArray();
+      res.send(result);
+    });
 
-// Delete item From Add To Cart
+    // Delete item From Add To Cart
 
-app.delete("/mycart/:id", async (req, res) => {
-  const id = req.params.id;
-  const query = { _id: new ObjectId(id) };
-  const result = await mycartCollections.deleteOne(query);
-  res.send(result);
-});
+    app.delete("/mycart/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await mycartCollections.deleteOne(query);
+      res.send(result);
+    });
     // Send a ping to confirm a successful connection
-    await client.db("admin")
-    .command({ ping: 1 });
+    await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
